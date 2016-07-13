@@ -1,0 +1,45 @@
+%formelement {
+	@include font-size(15px);
+
+	background-color: #ffffff;
+	border-radius: $border-radius;
+	border: 1px solid $brand-border;
+	outline: 0;
+
+	transition: border .2s ease-in-out 0s;
+
+	&:focus {
+		border-color: $brand-border-focus;
+	}
+}
+
+.input {
+	@extend %formelement;
+
+	box-sizing: border-box;
+
+	@include print() {
+		@include font-size(22px);
+
+		padding-left: $default-spacing-unit;
+		margin-left: $default-spacing-unit;
+		text-indent: $default-spacing-unit;
+        border: 0;
+    }
+}
+
+.input--clean {
+	width: 100%;
+	height: $default-spacing-unit * 2;
+	border: 0;
+	border-radius: 0;
+	border-bottom: 1px solid $brand-border;
+}
+
+.input--large {
+	@include font-size(20px);
+
+	height: $default-spacing-unit * 2;
+	padding: $default-spacing-unit / 6 $default-spacing-unit / 2;
+	color: $brand-text-primary;
+}

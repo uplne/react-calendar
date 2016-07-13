@@ -1,0 +1,28 @@
+.time-wizard-wrap {
+	position: relative;
+}
+
+.time-wizard {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+
+.time-wizard__box {
+	padding: $default-spacing-unit / 2 0;
+}
+
+.time-wizard__list-item {
+	min-width: 150px;
+	padding: $default-spacing-unit / 2 $default-spacing-unit;
+	cursor: pointer;
+
+	&:last-child {
+		border: 0;
+	}
+
+	&:hover {
+		background-color: rgba(0,0,0,.05);
+	}
+}

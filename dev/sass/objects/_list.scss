@@ -1,0 +1,35 @@
+%list,
+.list {
+	list-style-type: none;
+}
+
+.list--ui {
+	li {
+		display: inline-block;
+		vertical-align: top;
+	}
+}
+
+.list__item {
+	display: block;
+	padding: $default-spacing-unit / 1.5 $default-spacing-unit / 2;
+	border-bottom: 1px solid $brand-border;
+
+	@media print {
+		padding: $default-spacing-unit / 3 $default-spacing-unit / 2;
+	}
+}
+
+.list__link {
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.list--strips {
+	> li:nth-of-type(even) {
+		background-color: rgba(0,0,0,.02);
+	}
+}
