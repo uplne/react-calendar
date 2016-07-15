@@ -16,6 +16,7 @@ System.config({
   map: {
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "classnames": "npm:classnames@2.2.5",
     "core-js": "npm:core-js@1.2.6",
     "moment": "npm:moment@2.14.1",
     "react": "npm:react@15.2.1",

@@ -28,6 +28,7 @@ export default class App extends React.Component {
     }
 
     pageClick(e) {
+        console.log(this.mouseIsDownOnWizard);
         if (this.mouseIsDownOnWizard) {
             return;
         }
@@ -46,14 +47,13 @@ export default class App extends React.Component {
     }
 
     submitWizard(state) {
-        console.log(state);
-
         this.setState({
             isWizardOn: false
         });
     }
 
     render () {
+        console.log('isWizardOn: ', this.state.isWizardOn);
         const timewizardRender = (this.state.isWizardOn) ? <TimeWizard submitWizard={this.submitWizard} onMouseDown={this.mouseDownHandler} onMouseUp={this.mouseUpHandler}/> : false;
 
         return (

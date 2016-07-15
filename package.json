@@ -36,12 +36,15 @@
   },
   "dependencies": {
     "babel-preset-react": "^6.11.1",
+    "classnames": "^2.2.5",
+    "moment": "^2.14.1",
     "react-dom": "^15.2.0",
     "react-infinite-calendar": "^1.1.17",
     "rollup": "^0.33.1"
   },
   "jspm": {
     "dependencies": {
+      "classnames": "npm:classnames@^2.2.5",
       "moment": "npm:moment@^2.14.1",
       "react": "npm:react@^15.2.0",
       "react-datepicker": "npm:react-datepicker@^0.28.1",
