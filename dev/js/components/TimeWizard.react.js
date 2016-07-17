@@ -1,57 +1,69 @@
 import React, {PropTypes} from 'react';
 
-import DateTimePicker from './DateTimePicker.react';
+import TimeWizardBox from './TimeWizardBox.react';
 
 export default class TimeWizard extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            isListOpen: true
+            isWizardBoxOpen: false,
+            timeData: {
+                isRange: false,
+                dateStart: '',
+                timeStart: '08:00'
+            }
         };
 
-        this.openOneDayPicker = this.openOneDayPicker.bind(this);
+        this.startAddTimeWizard = this.startAddTimeWizard.bind(this);
+        this.mouseDownHandler = this.mouseDownHandler.bind(this);
+        this.mouseUpHandler = this.mouseUpHandler.bind(this);
+        this.submitWizard = this.submitWizard.bind(this);
+        this.pageClick = this.pageClick.bind(this);
     }
 
-    openOneDayPicker() {
+    componentDidMount() {
+        window.addEventListener('mousedown', this.pageClick, false);
+    }
+
+    pageClick(e) {
+        if (this.mouseIsDownOnWizard) {
+            return;
+        }
+
         this.setState({
-            isListOpen: false,
-            isDayTimePickerOpen: true
+            isWizardBoxOpen: false
         });
     }
 
-    openDayRangePicker() {
-
+    startAddTimeWizard() {
+        this.setState({
+            isWizardBoxOpen: true
+        });
     }
 
-    handleChange() {
-
+    mouseDownHandler() {
+        this.mouseIsDownOnWizard = true;
     }
 
-    // To choose between some option e.g. Date, Date range...
-    renderOptionList() {
-        if (this.state.isListOpen) {
-            return (
-                <ul className="list time-wizard__box">
-                    <li className="list__item time-wizard__list-item" onClick={this.openOneDayPicker}>
-                        <p>Date</p>
-                    </li>
-                    <li className="list__item time-wizard__list-item" onClick={this.openDayRangePicker}>
-                        <p>Date range</p>
-                    </li>
-                </ul>
-            );
-        } else {
-            return false;
-        }
+    mouseUpHandler() {
+        this.mouseIsDownOnWizard = false;
+    }
+
+    submitWizard(state) {
+        this.setState({
+            isWizardBoxOpen: false
+        });
     }
 
     render() {
         return (
-            <div className="time-wizard box--shadow" onMouseDown={this.props.onMouseDown} onMouseUp={this.props.onMouseUp}>
-                {this.renderOptionList()}
-                <DateTimePicker 
-                    state={this.state} />
+            <div className="time-wizard-wrap" >
+               <button onClick={this.startAddTimeWizard}>Add time</button>
+               <TimeWizardBox
+                    isWizardBoxOpen={this.state.isWizardBoxOpen}
+                    onMouseDown={this.mouseDownHandler}
+                    onMouseUp={this.mouseUpHandler} />
             </div>
         );
     }

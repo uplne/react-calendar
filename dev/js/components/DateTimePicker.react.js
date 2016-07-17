@@ -17,7 +17,6 @@ export default class DateTimePicker extends React.Component {
         };
 
         this.handleTimeChange = this.handleTimeChange.bind(this);
-        this.handleTimeBlur = this.handleTimeBlur.bind(this);
         this.openCalendar = this.openCalendar.bind(this);
         this.onCalendarClick = this.onCalendarClick.bind(this);
     }
@@ -30,14 +29,10 @@ export default class DateTimePicker extends React.Component {
 
     handleTimeChange(id, value) {
         this.setState({
-            [id]: value
+            [id]: value,
+            isTimeValid: TimeValidate(value)
         });
-    }
-
-    handleTimeBlur() {
-        this.setState({
-            isTimeValid: TimeValidate(this.state.timeStart)
-        });
+        this.validateInputs();
     }
 
     onCalendarClick(day) {
@@ -55,6 +50,10 @@ export default class DateTimePicker extends React.Component {
         return moment(this.state.dateStart).format('ddd, D MMM');
     }
 
+    validateInputs() {
+        return this.state.isTimeValid && this.state.dateStart !== '';
+    }
+
     render () {
         if (this.props.state.isDayTimePickerOpen) {
             return (
@@ -66,21 +65,22 @@ export default class DateTimePicker extends React.Component {
                             name="dateStart"
                             classNames="input input--clean"
                             value={this.getRightMoment()}
-                            onFocus={this.openCalendar}>
+                            onFocus={this.openCalendar}
+                            onChange={this.validateInputs}>
                             <svg className="icontextfield__icon" viewBox="0 0 20 20"><path d="M17 3h-1v2h-3V3H7v2H4V3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V9h14v8zM6.5 1h-2v3.5h2V1zm9 0h-2v3.5h2V1z"/></svg>
                         </IconTextField>
                         <IconTextField
                             id="timeStart"
                             name="timeStart"
                             classNames="input input--clean"
-                            value={this.props.state.timeStart}
-                            valid={this.props.state.isTimeValid}
+                            value={this.state.timeStart}
+                            valid={this.state.isTimeValid}
                             onBlur={this.handleTimeBlur}
                             onChange={this.handleTimeChange}>
                             <svg className="icontextfield__icon" viewBox="0 0 32 32"><path d="M20.586 23.414L14 16.828V8h4v7.172l5.414 5.414zM16 0C7.163 0 0 7.163 0 16s7.163 16 16 16 16-7.163 16-16S24.837 0 16 0zm0 28C9.373 28 4 22.627 4 16S9.373 4 16 4s12 5.373 12 12-5.373 12-12 12z"/></svg>
                         </IconTextField>
                     </div>
-                    <button disabled={!this.props.state.isTimeValid} className="btn btn--small btn--primary date-time-picker__btn">Save</button>
+                    <button disabled={!this.validateInputs()} className="btn btn--small btn--primary date-time-picker__btn">Save</button>
                     <Calendar
                         dateStart={moment()}
                         isCalendarOpen={this.state.isCalendarOpen}
