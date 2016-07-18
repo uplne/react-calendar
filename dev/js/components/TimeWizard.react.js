@@ -51,19 +51,30 @@ export default class TimeWizard extends React.Component {
     }
 
     submitWizard(state) {
+        console.log('submitWizard');
         this.setState({
             isWizardBoxOpen: false
         });
+    }
+
+    renderTimeWizard() {
+        if (this.state.isWizardBoxOpen) {
+            return (
+                <TimeWizardBox
+                    onMouseDown={this.mouseDownHandler}
+                    onMouseUp={this.mouseUpHandler}
+                    submitWizard={this.submitWizard} />
+            );
+        } else {
+            return false;
+        }
     }
 
     render() {
         return (
             <div className="time-wizard-wrap" >
                <button onClick={this.startAddTimeWizard}>Add time</button>
-               <TimeWizardBox
-                    isWizardBoxOpen={this.state.isWizardBoxOpen}
-                    onMouseDown={this.mouseDownHandler}
-                    onMouseUp={this.mouseUpHandler} />
+               {this.renderTimeWizard()}
             </div>
         );
     }

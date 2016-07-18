@@ -55,7 +55,7 @@ export default class DateTimePicker extends React.Component {
     }
 
     render () {
-        if (this.props.state.isDayTimePickerOpen) {
+        if (this.props.isOneDayPickerOpen) {
             return (
                 <div className="date-time-picker box--small">
                     <h4>Select date and time</h4>
@@ -80,7 +80,10 @@ export default class DateTimePicker extends React.Component {
                             <svg className="icontextfield__icon" viewBox="0 0 32 32"><path d="M20.586 23.414L14 16.828V8h4v7.172l5.414 5.414zM16 0C7.163 0 0 7.163 0 16s7.163 16 16 16 16-7.163 16-16S24.837 0 16 0zm0 28C9.373 28 4 22.627 4 16S9.373 4 16 4s12 5.373 12 12-5.373 12-12 12z"/></svg>
                         </IconTextField>
                     </div>
-                    <button disabled={!this.validateInputs()} className="btn btn--small btn--primary date-time-picker__btn">Save</button>
+                    <button
+                        disabled={!this.validateInputs()}
+                        className="btn btn--small btn--primary date-time-picker__btn"
+                        onClick={() => this.props.onSave(this.state)}>Save</button>
                     <Calendar
                         dateStart={moment()}
                         isCalendarOpen={this.state.isCalendarOpen}
@@ -94,5 +97,6 @@ export default class DateTimePicker extends React.Component {
 }
 
 DateTimePicker.propTypes = {
-    state: PropTypes.object.isRequired
+    onSave: PropTypes.func.isRequired,
+    isOneDayPickerOpen: PropTypes.bool.isRequired
 };
