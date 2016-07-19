@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 
 import TimeWizardBox from './TimeWizardBox.react';
+import {TimeFormat} from '../utils/TimeValidate';
 
 export default class TimeWizard extends React.Component {
     constructor() {
@@ -20,6 +21,7 @@ export default class TimeWizard extends React.Component {
         this.mouseUpHandler = this.mouseUpHandler.bind(this);
         this.submitWizard = this.submitWizard.bind(this);
         this.pageClick = this.pageClick.bind(this);
+        this.removeDate = this.removeDate.bind(this);
     }
 
     componentDidMount() {
@@ -51,9 +53,13 @@ export default class TimeWizard extends React.Component {
     }
 
     submitWizard(state) {
-        console.log('submitWizard');
         this.setState({
-            isWizardBoxOpen: false
+            isWizardBoxOpen: false,
+            timeData: {
+                isRange: false,
+                dateStart: state.dateStart,
+                timeStart: state.timeStart
+            }
         });
     }
 
@@ -70,11 +76,44 @@ export default class TimeWizard extends React.Component {
         }
     }
 
+    renderAddButton() {
+        return (this.state.timeData.dateStart === '') ? <button onClick={this.startAddTimeWizard}>Add time</button> : false;
+    }
+
+    removeDate() {
+        this.resetState();
+    }
+
+    resetState() {
+        this.setState({
+            isWizardBoxOpen: false,
+            timeData: {
+                isRange: false,
+                dateStart: '',
+                timeStart: '08:00'
+            }
+        });
+    }
+
+    renderAddedTimes() {
+        if (this.state.timeData.dateStart !== '') {
+            return (
+                <div>
+                    <h4>On date: </h4>
+                    <p>{TimeFormat(this.state.timeData.dateStart)} {this.state.timeData.timeStart} <button onClick={this.removeDate}>Remove date</button></p>
+                </div>
+            );
+        } else {
+            return false;
+        }
+    }
+
     render() {
         return (
             <div className="time-wizard-wrap" >
-               <button onClick={this.startAddTimeWizard}>Add time</button>
+               {this.renderAddButton()}
                {this.renderTimeWizard()}
+               {this.renderAddedTimes()}
             </div>
         );
     }

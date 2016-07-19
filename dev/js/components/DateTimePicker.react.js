@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import moment         from 'moment';
 
 import IconTextField  from './IconTextField.react';
-import {TimeValidate} from '../utils/TimeValidate';
+import {TimeValidate, TimeFormat} from '../utils/TimeValidate';
 import Calendar       from './Calendar.react';
 
 export default class DateTimePicker extends React.Component {
@@ -47,7 +47,7 @@ export default class DateTimePicker extends React.Component {
             return '';
         }
 
-        return moment(this.state.dateStart).format('ddd, D MMM');
+        return TimeFormat(this.state.dateStart);
     }
 
     validateInputs() {
