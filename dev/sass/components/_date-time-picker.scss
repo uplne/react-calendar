@@ -1,8 +1,22 @@
 .date-time-picker {
 	display: inline-block;
 	vertical-align: top;
+	min-width: 212px;
+}
+
+.date-time-picker--first {
+	margin-right: $default-spacing-unit / 2;
 }
 
 .date-time-picker__btn {
+	display: block;
 	margin-top: $default-spacing-unit / 2;
+}
+
+.date-time-picker__info {
+	font-weight: normal;
+}
+
+.date-time-picker__input-box {
+	position: relative;
 }

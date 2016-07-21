@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import classNames from 'classnames';
 
 import Week from './Week.react';
 import ArrowBtn from './ArrowBtn.react';
@@ -40,9 +41,12 @@ export default class Calendar extends React.Component {
         const monthName = getMonthName(this.state.date);
         const weekDayNames = getWeekDayNames();
         const weeks = getWeeks(startOfTheMonth);
+        const classes = classNames('datepicker box box--shadow', {
+                'is-position-right': this.props.isPositionRight
+            });
 
         return (
-            <div className="datepicker box box--shadow">
+            <div className={classes}>
                 <table className="datepicker__table">
                     <thead className="datepicker__header">
                         <tr>
@@ -81,5 +85,6 @@ export default class Calendar extends React.Component {
 
 Calendar.propTypes = {
     dateStart: PropTypes.object,
+    isPositionRight: PropTypes.bool,
     onClick: PropTypes.func.isRequired
 };

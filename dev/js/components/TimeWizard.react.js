@@ -1,7 +1,8 @@
 import React, {PropTypes} from 'react';
 
 import TimeWizardBox from './TimeWizardBox.react';
-import {TimeFormat} from '../utils/TimeValidate';
+import TimeDisplay   from './TimeDisplay.react';
+import {TimeFormat}  from '../utils/TimeValidate';
 
 export default class TimeWizard extends React.Component {
     constructor() {
@@ -58,7 +59,24 @@ export default class TimeWizard extends React.Component {
             timeData: {
                 isRange: false,
                 dateStart: state.dateStart,
-                timeStart: state.timeStart
+                timeStart: state.timeStart,
+                dateEnd: state.dateEnd,
+                timeEnd: state.timeEnd
+            }
+        });
+    }
+
+    removeDate() {
+        this.resetState();
+    }
+
+    resetState() {
+        this.setState({
+            isWizardBoxOpen: false,
+            timeData: {
+                isRange: false,
+                dateStart: '',
+                timeStart: '08:00'
             }
         });
     }
@@ -80,40 +98,12 @@ export default class TimeWizard extends React.Component {
         return (this.state.timeData.dateStart === '') ? <button onClick={this.startAddTimeWizard}>Add time</button> : false;
     }
 
-    removeDate() {
-        this.resetState();
-    }
-
-    resetState() {
-        this.setState({
-            isWizardBoxOpen: false,
-            timeData: {
-                isRange: false,
-                dateStart: '',
-                timeStart: '08:00'
-            }
-        });
-    }
-
-    renderAddedTimes() {
-        if (this.state.timeData.dateStart !== '') {
-            return (
-                <div>
-                    <h4>On date: </h4>
-                    <p>{TimeFormat(this.state.timeData.dateStart)} {this.state.timeData.timeStart} <button onClick={this.removeDate}>Remove date</button></p>
-                </div>
-            );
-        } else {
-            return false;
-        }
-    }
-
     render() {
         return (
             <div className="time-wizard-wrap" >
                {this.renderAddButton()}
                {this.renderTimeWizard()}
-               {this.renderAddedTimes()}
+               <TimeDisplay data={this.state.timeData} />
             </div>
         );
     }

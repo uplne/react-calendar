@@ -41,7 +41,7 @@ export default class IconTextField extends React.Component {
 
         return (
             <div className={classes}>
-                <input {...inputProps} onChange={this.handleChange.bind(this)} onFocus={this.props.onFocus} onBlur={this.props.onBlur} />
+                <input {...inputProps} placeholder={this.props.placeholder} onChange={this.handleChange.bind(this)} onFocus={this.props.onFocus} onBlur={this.props.onBlur} />
                 {this.renderChildren()}
             </div>
         );

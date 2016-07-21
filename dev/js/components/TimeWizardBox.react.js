@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import moment         from 'moment';
+import classnames     from 'classnames';
 
 import IconTextField  from './IconTextField.react';
 import {TimeValidate, TimeFormat} from '../utils/TimeValidate';
@@ -57,9 +58,12 @@ export default class TimeWizardBox extends React.Component {
     }
 
     renderCalendar() {
+    	const isPositionRight = (this.state.calendarRef !== 'dateStart');
+
     	if (this.state.isCalendarOpen) {
 	    	return (
 	    		<Calendar
+	    			isPositionRight={isPositionRight}
 		            dateStart={moment()}
 		            onClick={this.onCalendarClick} />
 		    );
@@ -70,8 +74,8 @@ export default class TimeWizardBox extends React.Component {
 
     render () {
         return (
-            <div className="time-wizard box--shadow">
-            	<div className="date-time-picker box--small" onMouseDown={this.props.onMouseDown} onMouseUp={this.props.onMouseUp}>
+            <div className="time-wizard box--small box--shadow" onMouseDown={this.props.onMouseDown} onMouseUp={this.props.onMouseUp}>
+            	<div className="date-time-picker date-time-picker--first">
                     <h4>Start date and time</h4>
                     <div className="date-time-picker__input-box">
                         <IconTextField
@@ -86,6 +90,7 @@ export default class TimeWizardBox extends React.Component {
                             id="timeStart"
                             name="timeStart"
                             classNames="input input--clean"
+                            placeholder="08:00"
                             value={this.state.timeStart}
                             valid={this.state.isTimeValid}
                             onChange={this.handleTimeChange}>
@@ -93,8 +98,8 @@ export default class TimeWizardBox extends React.Component {
                         </IconTextField>
                     </div>
                 </div>
-                <div className="date-time-picker box--small" onMouseDown={this.props.onMouseDown} onMouseUp={this.props.onMouseUp}>
-                    <h4>End date and time (optional)</h4>
+                <div className="date-time-picker">
+                    <h4>End date and time <span className="date-time-picker__info">(optional)</span></h4>
                     <div className="date-time-picker__input-box">
                         <IconTextField
                             id="dateEnd"
@@ -108,6 +113,7 @@ export default class TimeWizardBox extends React.Component {
                             id="timeEnd"
                             name="timeEnd"
                             classNames="input input--clean"
+                            placeholder="08:00"
                             value={this.state.timeEnd}
                             valid={this.state.isTimeValid}
                             onChange={this.handleTimeChange}>
